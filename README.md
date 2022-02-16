@@ -1,5 +1,12 @@
 # Spring Boot（十一）— 文件上传和下载
 
+改造为局域网上传下载项目
+
+转自:
+ * https://juejin.cn/post/6844903816303755277
+ * https://github.com/ramostear/Spring-Boot-File-Handling-Tutorial
+ 
+ 
 文件上传和下载是Web应用程序比较常用的功能之一，在本章节中，我将以一个简单的案例来讲解在Spring Boot中如何进行文件的上传与下载。在开始正文之前，我们通过一张思维导图来了解一下文件上传与下载的简单流程：
 
 ![文件上传与下载思维导图](https://cdn.ramostear.com/2019-03-08-18-22-31-780bd13186fc406db8212e9e87e65d66.png "文件上传与下载思维导图")
