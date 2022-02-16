@@ -24,3 +24,7 @@ HELP.md
 /nbdist/
 /.nb-gradle/
 /build/
+/src/test/java/com/ramostear/application/FileHandlingApplicationTests.java
+/.mvn/wrapper/maven-wrapper.jar
+/.mvn/wrapper/maven-wrapper.properties
+/.mvn/wrapper/MavenWrapperDownloader.java
