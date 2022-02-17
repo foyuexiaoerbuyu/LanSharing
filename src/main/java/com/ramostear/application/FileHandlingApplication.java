@@ -13,7 +13,7 @@ public class FileHandlingApplication {
 		try {
 			InetAddress addr = InetAddress.getLocalHost();
 			System.out.println("Local HostAddress: "+addr.getHostAddress());
-			Runtime.getRuntime().exec("cmd   /c   start   http://"+addr.getHostAddress()+":8080/files");//可以指定自己的路径
+			Runtime.getRuntime().exec("cmd   /c   start   http://"+addr.getHostAddress()+":8088/files");//可以指定自己的路径
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
