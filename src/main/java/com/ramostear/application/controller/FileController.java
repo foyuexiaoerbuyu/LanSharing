@@ -3,6 +3,8 @@ package com.ramostear.application.controller;
 import com.ramostear.application.model.FileInfo;
 import com.ramostear.application.util.AjaxResult;
 import com.ramostear.application.util.FileUtil;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -149,6 +151,35 @@ public class FileController {
         return responseEntity;
     }
 
+    @RequestMapping("/tesst")
+    public String ok(){
+        return "tesst";
+    }
+
+
+    @RequestMapping("/zhihu")
+    public String zhihu(){
+//        OkHttpUtils.get().url("https://www.zhihu.com/question/20742809/answer/2304787514").build()
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onError(Call call, Exception e, int i) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String s, int i) {
+//                        String title="";
+//                        String content="";
+//                        Document doc = Jsoup.parse(s);
+////                        content = doc.getElementsByClass("ContentItem AnswerItem").toString();
+////                        content = doc.getElementsByClass("QuestionAnswer-content").toString();
+//                        title = doc.getElementsByClass("QuestionHeader-title").toString();
+//
+//                        System.out.println(title);
+//                    }
+//                });
+        return "tesst";
+    }
 //    @GetMapping("/QrTest")
 //    public void get(HttpServletResponse response) throws Exception {
 //        int width = 200;
