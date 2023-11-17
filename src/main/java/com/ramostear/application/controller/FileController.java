@@ -1,10 +1,9 @@
 package com.ramostear.application.controller;
 
+import com.ramostear.application.FileHandlingApplication;
 import com.ramostear.application.model.FileInfo;
 import com.ramostear.application.util.AjaxResult;
 import com.ramostear.application.util.FileUtil;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -121,6 +120,13 @@ public class FileController {
         }
         return "删除失败";
     }*/
+
+    @GetMapping("/stopService")
+    @ResponseBody
+    public AjaxResult stopService(){
+        FileHandlingApplication.stopApplication();
+        return AjaxResult.error("停止成功");
+    }
 
     @GetMapping("/deleteFile/{fileName}")
     @ResponseBody

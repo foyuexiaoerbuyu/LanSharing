@@ -2,6 +2,7 @@ package com.ramostear.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -14,8 +15,10 @@ import java.util.Set;
 @SpringBootApplication
 public class FileHandlingApplication {
 
+	private static ConfigurableApplicationContext context;
+
 	public static void main(String[] args) {
-		SpringApplication.run(FileHandlingApplication.class, args);
+		context = SpringApplication.run(FileHandlingApplication.class, args);
 		try {
 			InetAddress addr = InetAddress.getLocalHost();
 //			System.out.println("Local HostAddress: "+addr.getHostAddress()+"    = =   "+getLocalPort());
@@ -61,5 +64,10 @@ public class FileHandlingApplication {
 			ipAddrStr += ipAddr[i] & 0xFF;
 		}
 		return ipAddrStr;
+	}
+
+
+	public static void stopApplication() {
+		context.close();
 	}
 }
