@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -156,13 +158,13 @@ public class FileController {
     }
 
     @RequestMapping("/tesst")
-    public String ok(){
+    public String ok() {
         return "tesst";
     }
 
 
     @RequestMapping("/zhihu")
-    public String zhihu(){
+    public String zhihu() {
 //        OkHttpUtils.get().url("https://www.zhihu.com/question/20742809/answer/2304787514").build()
 //                .execute(new StringCallback() {
 //                    @Override
