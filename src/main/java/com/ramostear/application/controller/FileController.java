@@ -138,6 +138,10 @@ public class FileController {
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
         HttpHeaders headers = new HttpHeaders();
+        try {
+            fileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+        }
         headers.add("Content-Disposition", String.format("attachment;filename=\"%s", fileName));
         headers.add("Cache-Control", "no-cache,no-store,must-revalidate");
         headers.add("Pragma", "no-cache");
