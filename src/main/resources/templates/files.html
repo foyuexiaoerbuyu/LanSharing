@@ -6,67 +6,94 @@
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="panel panel-success" style="margin-top: 10px;">
-            <div class="panel-heading" >
-                <h3>File upload form:</h3>
-            </div>
-            <div class="panel-body">
-                <form id="upload-form" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <input type="file" style="height:200px;" name="file" id="file" class="form-control"/>
-                    </div>
-                    <button type="button" id="upload" class="btn btn-success">upload</button>
-                    <button type="button" id="stopService" class="btn btn-success">stopService</button>
-                </form>
-            </div>
-            <div class="panel-footer">
-                <h3>File download list:</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>file name</th><th>upload time</th><th>download</th><th>deleteFile</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <#if data?size gt 0>
-                            <#list data as file>
-                                <tr>
-                                    <td>${file.name}</td>
-                                    <td>${file.uploadTime?string("yyyy-MM-dd")}</td>
-                                    <td>
-                                        <a href="download/${file.name}" data-id="${file.name}" class="btn btn-primary">download</a>
-                                    </td>
-                                    <td>
-                                        <a data-id="${file.name}" class="btn btn-primary" onclick = 'getInfo("${file.name}")'>deleteFile</a>
-                                    </td>
-                                </tr>
-                            </#list>
-                        <#else>
-                            <tr>
-                                <td colspan="3" class="text-center">please upload a file.</td>
-                            </tr>
-                        </#if>
-                    </tbody>
+<div class="container">
+    <div class="panel panel-success" style="margin-top: 10px;">
+        <div class="panel-heading" >
+            <h3>File upload form:</h3>
+            <!--加输入框-->
+            <!--                <input id="ipAddress" type="text" class="form-control" style="display: inline-block; width: 80%;" placeholder="请输入内容">-->
+        </div>
+        <div class="panel-body">
+            <form id="upload-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" style="height:200px;" name="file" id="file" class="form-control"/>
+                </div>
+                <button type="button" id="upload" class="btn btn-success">upload</button>
+                <button type="button" id="stopService" class="btn btn-success">stopService</button>
+                <button type="button" class="btn btn-success" onclick="openMyBlog()">写博客</button>
+            </form>
+        </div>
+        <div class="panel-footer">
+            <h3>File download list:</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="width: 30%">file name</th>
+                    <th style="width: 40%">upload time</th>
+                    <th>download</th>
+                    <th>copyLink</th>
+                    <th>deleteFile</th>
+                </tr>
+                </thead>
+                <tbody>
+                <#if data?size gt 0>
+                <#list data as file>
+                <tr>
+                    <td>${file.name}</td>
+                    <td>${file.uploadTime?string("yyyy-MM-dd")}</td>
+                    <td>
+                        <a href="download/${file.name}" data-id="${file.name}" class="btn btn-primary">download</a>
+                    </td>
+                        <td>
+                        <a data-id="${file.name}" class="btn btn-primary" onclick = 'copyLink("${file.name}")'>copyLink</a>
+                        </td>
+                        <td>
+                            <a data-id="${file.name}" class="btn btn-primary" onclick = 'getInfo("${file.name}")'>deleteFile</a>
+                        </td>
+                    </tr>
+                    </#list>
+                    <#else>
+                    <tr>
+                        <td colspan="3" class="text-center">please upload a file.</td>
+                    </tr>
+                </#if>
+                </tbody>
                 </table>
             </div>
         </div>
-<!--        <img src="/QrTest">-->
+        <!--        <img src="/QrTest">-->
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $("#upload").on("click",function () {
-           var fileObj = document.getElementById("file").files[0];
-           var form = new FormData();
-           form.append("file",fileObj);
-           var xhr = new XMLHttpRequest();
-           xhr.open("post","/upload",true);
-           xhr.onload = function(event){
-               alert(event.currentTarget.responseText);
-               window.location.href = window.location.href;
-           };
-           xhr.send(form);
+<!--    <script type="text/javascript" src="./js/qrcode.min.js"  rel="stylesheet"></script>-->
+<!--    <script src="./js/jquery.min.js"  rel="stylesheet"></script>-->
+<!--    <script src="./js/myutils.js"  rel="stylesheet"></script>-->
+
+<script type="text/javascript">
+    // $(document).ready(function() {
+    //     $("#ipAddress").attr("value", location.href);
+    // });
+
+    var protocol = window.location.protocol;// 获取协议，例如 http 或 https
+    var hostname = window.location.hostname;// 获取主机名，例如 www.example.com
+    var port = window.location.port;// 获取端口号，例如 80 或 443
+    var serverUrl = protocol + "//" + hostname + (port ? ":" + port : "");// 拼接服务器地址
+
+    $("#upload").on("click",function () {
+        var fileObj = document.getElementById("file").files[0];
+        if (fileObj.size > 200 * 1024 * 1024) {
+            alert('上传文件大小不能超过200MB');
+            return
+        }
+        var form = new FormData();
+        form.append("file",fileObj);
+        var xhr = new XMLHttpRequest();
+        xhr.open("post","/upload",true);
+        xhr.onload = function(event){
+            alert(event.currentTarget.responseText);
+            window.location.href = window.location.href;
+        };
+        xhr.send(form);
         });
         $("#stopService").on("click",function () {
             $.ajax({
@@ -95,6 +122,15 @@
                 }
             })
         }
-    </script>
+
+    function copyLink(fileName) {
+        alert(serverUrl + '/download/' + fileName);
+    }
+
+    function openMyBlog() {
+        window.open( protocol + "//" + hostname+':8087', '_blank');
+
+    }
+</script>
 </body>
 </html>
